@@ -27,10 +27,10 @@ class CategoryController extends AdminController
         $grid = new Grid(new Category);
 
         $grid->column('id', __('ID'));
-        $grid->column('name', __('Nama'));
-        $grid->column('parents.name', __('Induk'));
-        $grid->column('created_at', __('Dibuat pada'));
-        $grid->column('updated_at', __('Diperbarui pada'));
+        $grid->column('name', __('Name'));
+        $grid->column('parents.name', __('Parent'));
+        $grid->column('created_at', __('Created at'));
+        $grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }
@@ -46,14 +46,14 @@ class CategoryController extends AdminController
         $show = new Show(Category::findOrFail($id));
 
         $show->field('id', __('ID'));
-        $show->field('name', __('Nama'));
-        $show->field('created_at', __('Dibuat pada'));
-        $show->field('updated_at', __('Diperbarui pada'));
+        $show->field('name', __('Name'));
+        $show->field('created_at', __('Created at'));
+        $show->field('updated_at', __('Updated at'));
 
-        $show->subcategories(__('Sub Kategori'), function ($show)
+        $show->subcategories(__('Sub Category'), function ($show)
         {
             $show->resource('admin/posts/categories');
-            $show->name(__('Nama'));
+            $show->name(__('Name'));
         });
 
         return $show;
@@ -68,7 +68,7 @@ class CategoryController extends AdminController
     {
         $form = new Form(new Category);
 
-        $form->select('parent_id', __('Induk Kategori'))
+        $form->select('parent_id', __('Parent'))
             ->options(Category::all()->pluck('name', 'id'));
         $form->text('name', __('Nama'));
         $form->hasMany('subcategories', function (Form\NestedForm $form) {

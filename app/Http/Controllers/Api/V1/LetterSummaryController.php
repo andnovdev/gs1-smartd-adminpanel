@@ -76,7 +76,7 @@ class LetterSummaryController extends Controller
 
          $letter_summary->save();
 
-         return $letter_summary
+         return $letter_summary;
      }
 
      /**

@@ -1,6 +1,6 @@
 <?php
 
-purposespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1;
 
 use App\LetterDetail;
 use Illuminate\Http\Request;

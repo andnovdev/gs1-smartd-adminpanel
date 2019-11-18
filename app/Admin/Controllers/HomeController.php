@@ -47,19 +47,19 @@ class HomeController extends Controller
 
     public function countVillager()
     {
-        return User::role('Penduduk')->count();
+        return User::role('Villager')->count();
     }
 
     public function countEmployees()
     {
-        return User::role('Karyawan')->count();
+        return User::role('Employee')->count();
     }
 
     public function countGender()
     {
-        $male = $this->countValue('user_profiles', 'gender', 'Laki-laki');
-        $female = $this->countValue('user_profiles', 'gender', 'Perempuan');
-        $other = $this->countValue('user_profiles', 'gender', 'Tidak Diketahui');
+        $male = $this->countValue('user_profiles', 'gender', 'Male');
+        $female = $this->countValue('user_profiles', 'gender', 'Female');
+        $other = $this->countValue('user_profiles', 'gender', 'Unknown');
 
         $countGender = [$male, $female, $other];
         // return $countGender;

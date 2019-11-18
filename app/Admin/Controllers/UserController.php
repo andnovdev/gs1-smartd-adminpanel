@@ -17,7 +17,7 @@ class UserController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Manajemen Pengguna';
+    protected $title = 'App/User';
 
     /**
      * Make a grid builder.
@@ -30,13 +30,13 @@ class UserController extends AdminController
         $grid->model()->latest();
 
         $grid->column('id', __('ID'));
-        $grid->column('name', __('Nama'));
+        $grid->column('name', __('Name'));
         $grid->column('username', __('Username'));
         $grid->column('email', __('Email'));
-        $grid->column('email_verified_at', __('Verifikasi Email Pada'));
+        $grid->column('email_verified_at', __('Email verified at'));
         $grid->column('activityStatuses.status', __('Status'));
-        $grid->column('created_at', __('Dibuat'));
-        $grid->column('updated_at', __('Diperbarui'));
+        $grid->column('created_at', __('Created at'));
+        $grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }
@@ -52,30 +52,30 @@ class UserController extends AdminController
         $show = new Show(User::findOrFail($id));
 
         $show->field('id', __('ID'));
-        $show->field('name', __('Nama'));
+        $show->field('name', __('Name'));
         $show->field('username', __('Username'));
         $show->field('email', __('Email'));
-        $show->field('email_verified_at', __('Verifikasi Email Pada'));
-        $show->field('created_at', __('Dibuat Pada'));
-        $show->field('updated_at', __('Diperbarui Pada'));
+        $show->field('email_verified_at', __('Email verified at'));
+        $show->field('created_at', __('Created at'));
+        $show->field('updated_at', __('Updated at'));
 
-        $show->profiles(__('Profil Pengguna'), function ($show) {
-            $show->field('birthday', __('Tanggal Lahir'));
-            $show->field('birthplace', __('Tempat Lahir'));
-            $show->field('gender', __('Jenis Kelamin'));
-            $show->field('religion', __('Agama'));
-            $show->field('address', __('Alamat'));
-            $show->field('job', __('Pekerjaan'));
-            $show->field('company', __('Tempat Kerja'));
-            $show->field('phone', __('Telepon'));
-            $show->field('desc', __('Deskripsi'));
+        $show->profiles(__('User Profiles'), function ($show) {
+            $show->field('birthday', __('Birthday'));
+            $show->field('birthplace', __('Birthplace'));
+            $show->field('gender', __('Gender'));
+            $show->field('religion', __('Religion'));
+            $show->field('address', __('Address'));
+            $show->field('job', __('Job'));
+            $show->field('company', __('Company'));
+            $show->field('phone', __('Phone'));
+            $show->field('desc', __('Description'));
             $show->field('avatar', __('Avatar'))->image();
         });
 
-        $show->activityStatuses(__('Aktivitas Pengguna'), function ($show)
+        $show->activityStatuses(__('User Activity'), function ($show)
         {
             $show->field('status', __('Status'));
-            $show->field('last_active', __('Terakhir Aktif'));
+            $show->field('last_active', __('Last active'));
         });
 
         return $show;
@@ -90,7 +90,7 @@ class UserController extends AdminController
     {
         $form = new Form(new User);
 
-        $form->text('name', __('Nama'))
+        $form->text('name', __('Name'))
             ->rules('required|string|max:255');
         $form->text('username', __('Username'))
             ->rules('required|string|between:5,255')
@@ -102,17 +102,17 @@ class UserController extends AdminController
         $form->email('email', __('Email'))
             ->rules('required|email|string|max:255')
             ->creationRules('unique:users,email');
-        $form->date('profiles.birthday', __('Tanggal Lahir'));
-        $form->text('profiles.birthplace', __('Tempat Lahir'));
-        $form->select('profiles.gender', __('Jenis Kelamin'))
-            ->options(['Tidak Diketahui' => 'Tidak Diketahui', 'Laki-Laki' => 'Laki-Laki', 'Perempuan' => 'Perempuan',]);
-        $form->text('profiles.religion', __('Agama'));
-        $form->textarea('profiles.address', __('Alamat'));
-        $form->text('profiles.job', __('Pekerjaan'));
-        $form->text('profiles.company', __('Tempat Kerja'));
-        $form->mobile('profiles.phone', __('Telepon'));
-        $form->textarea('profiles.desc', __('Deskripsi'));
-        $form->image('profiles.avatar', __('Foto Profil'))
+        $form->date('profiles.birthday', __('Birthday'));
+        $form->text('profiles.birthplace', __('Birthplace'));
+        $form->select('profiles.gender', __('Gender'))
+            ->options(['Unknown' => 'Unknown', 'Male' => 'Male', 'Female' => 'Female']);
+        $form->text('profiles.religion', __('Religion'));
+        $form->textarea('profiles.address', __('Address'));
+        $form->text('profiles.job', __('Job'));
+        $form->text('profiles.company', __('Company'));
+        $form->mobile('profiles.phone', __('Phone'));
+        $form->textarea('profiles.desc', __('Description'));
+        $form->image('profiles.avatar', __('Avatar'))
             ->removable()
             ->move('users/avatars');
 

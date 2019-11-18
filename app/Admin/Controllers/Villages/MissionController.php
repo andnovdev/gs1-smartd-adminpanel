@@ -15,7 +15,7 @@ class MissionController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Misi Desa';
+    protected $title = 'Mission';
 
     /**
      * Make a grid builder.
@@ -28,10 +28,10 @@ class MissionController extends AdminController
         $grid->model()->latest();
 
         $grid->column('id', __('ID'));
-        $grid->column('content', __('Misi'));
-        $grid->column('desc', __('Deskripsi'));
-        $grid->column('created_at', __('Dibuat'));
-        $grid->column('updated_at', __('Diperbarui'));
+        $grid->column('content', __('Mission'));
+        $grid->column('desc', __('Description'));
+        $grid->column('created_at', __('Created at'));
+        $grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }
@@ -47,10 +47,10 @@ class MissionController extends AdminController
         $show = new Show(Mission::findOrFail($id));
 
         $show->field('id', __('ID'));
-        $show->field('content', __('Misi'));
-        $show->field('desc', __('Deskripsi'));
-        $show->field('created_at', __('Dibuat'));
-        $show->field('updated_at', __('Diperbarui'));
+        $show->field('content', __('Mission'));
+        $show->field('desc', __('Desciption'));
+        $show->field('created_at', __('Created at'));
+        $show->field('updated_at', __('Updated at'));
 
         return $show;
     }
@@ -64,8 +64,8 @@ class MissionController extends AdminController
     {
         $form = new Form(new Mission);
 
-        $form->text('content', __('Misi'));
-        $form->textarea('desc', __('Deskripsi'));
+        $form->text('content', __('Mission'));
+        $form->textarea('desc', __('Description'));
 
         return $form;
     }

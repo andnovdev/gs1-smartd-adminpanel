@@ -76,7 +76,7 @@ class VillageVissionController extends Controller
 
          $village_vission->save();
 
-         return $village_vission
+         return $village_vission;
      }
 
      /**

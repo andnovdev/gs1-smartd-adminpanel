@@ -36,8 +36,8 @@ class postCommentController extends Controller
        return PostComment::create([
          'post_id' => $request->post_id,
          'user_id' => $request->user_id,
-         'name' => $request->name.
-         'email' => $request->email
+         'name' => $request->name,
+         'email' => $request->email,
        ]);
      }
 

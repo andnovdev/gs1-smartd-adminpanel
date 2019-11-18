@@ -76,7 +76,7 @@ class VillageRegulationController extends Controller
 
          $village_regulation->save();
 
-         return $village_regulation
+         return $village_regulation;
      }
 
      /**

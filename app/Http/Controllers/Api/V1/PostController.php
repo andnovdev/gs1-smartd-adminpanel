@@ -40,7 +40,7 @@ class PostController extends Controller
       return Post::create([
         'title' => $request->title,
         'subtitle' => $request->subtitle,
-        'category_id' => $request->category_id.
+        'category_id' => $request->category_id,
         'desc' => $request->desc,
         'content' => $request->content,
         'status' => $request->status,

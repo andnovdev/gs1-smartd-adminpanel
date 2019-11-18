@@ -28,10 +28,10 @@ class BudgetController extends Controller
      public function store(Request $request)
      {
          $request->validate([
-           'category_id' => 'required|integer'
+           'category_id' => 'required|integer',
            'goal_value' => 'required|integer',
            'frecuency' => 'required|max:100',
-           'purpose' => 'required|max:50'
+           'purpose' => 'required|max:50',
          ]);
 
          return Budget::create([
@@ -94,7 +94,7 @@ class BudgetController extends Controller
 
          $budget->save();
 
-         return $budget
+         return $budget;
      }
 
      /**

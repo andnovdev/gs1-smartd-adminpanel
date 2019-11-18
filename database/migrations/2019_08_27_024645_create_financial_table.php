@@ -27,13 +27,13 @@ class CreateFinancialTable extends Migration
         Schema::create('financial_categories', function (Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->BigInteger('parent_id')
+            $table->unsignedBigInteger('pid')
                 ->nullable();
-            $table->foreign('parent_id')
+            $table->foreign('pid')
                 ->references('id')
                 ->on('financial_categories')
                 ->onDelete('cascade');
+            $table->string('name');
         });
 
         Schema::create('financial_budgets', function (Blueprint $table)
@@ -47,7 +47,7 @@ class CreateFinancialTable extends Migration
                 ->on('financial_categories')
                 ->onDelete('cascade');
             $table->bigInteger('goal_value');
-            $table->string('frecuency');
+            $table->string('frequency');
             $table->string('purpose');
             $table->timestamps();
         });

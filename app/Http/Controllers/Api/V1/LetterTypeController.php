@@ -67,7 +67,7 @@ class LetterTypeController extends Controller
 
          $letter_type->save();
 
-         return $letter_type
+         return $letter_type;
      }
 
      /**

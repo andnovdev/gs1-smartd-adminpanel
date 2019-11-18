@@ -76,7 +76,7 @@ class VillageMissionController extends Controller
 
         $village_mission->save();
 
-        return $village_mission
+        return $village_mission;
     }
 
     /**

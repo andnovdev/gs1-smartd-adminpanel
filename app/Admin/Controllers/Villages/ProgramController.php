@@ -28,12 +28,12 @@ class ProgramController extends AdminController
         $grid->model()->latest();
 
         $grid->column('id', __('ID'));
-        $grid->column('title', __('Nama Program'));
-        $grid->column('desc', __('Deskripsi'));
-        $grid->column('year_start', __('Tahun mulai'));
-        $grid->column('year_finish', __('Tahun selesai'));
-        $grid->column('created_at', __('Dibuat pada'));
-        $grid->column('updated_at', __('Diperbarui pada'));
+        $grid->column('title', __('Program name'));
+        $grid->column('desc', __('Description'));
+        $grid->column('year_start', __('Start year'));
+        $grid->column('year_finish', __('Fisish year'));
+        $grid->column('created_at', __('Created at'));
+        $grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }
@@ -49,12 +49,12 @@ class ProgramController extends AdminController
         $show = new Show(Program::findOrFail($id));
 
         $show->field('id', __('ID'));
-        $show->field('title', __('Nama Program'));
-        $show->field('desc', __('Deskripsi'));
-        $show->field('year_start', __('Tahun mulai'));
-        $show->field('year_finish', __('Tahun selesai'));
-        $show->field('created_at', __('Dibuat pada'));
-        $show->field('updated_at', __('Diperbarui pada'));
+        $show->field('title', __('Program name'));
+        $show->field('desc', __('Description'));
+        $show->field('year_start', __('Start year'));
+        $show->field('year_finish', __('Fisish year'));
+        $show->field('created_at', __('Created at'));
+        $show->field('updated_at', __('Updated at'));
 
         return $show;
     }
@@ -68,12 +68,12 @@ class ProgramController extends AdminController
     {
         $form = new Form(new Program);
 
-        $form->text('title', __('Nama Program'));
-        $form->ckeditor('desc', __('Deskripsi'));
-        $form->date('year_start', __('Tahun mulai'))
+        $form->text('title', __('Program name'));
+        $form->ckeditor('desc', __('Description'));
+        $form->date('year_start', __('Start year'))
             ->default(date('YYYY'))
             ->format('YYYY');
-        $form->date('year_finish', __('Tahun Selesai'))
+        $form->date('year_finish', __('Finish year'))
             ->default(date('YYYY'))
             ->format('YYYY');
 

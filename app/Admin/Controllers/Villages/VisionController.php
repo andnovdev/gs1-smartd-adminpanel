@@ -15,7 +15,7 @@ class VisionController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Visi Desa';
+    protected $title = 'Vision';
 
     /**
      * Make a grid builder.
@@ -28,10 +28,10 @@ class VisionController extends AdminController
         $grid->model()->latest();
 
         $grid->column('id', __('ID'));
-        $grid->column('content', __('Visi'));
-        $grid->column('desc', __('Deskripsi'));
-        $grid->column('created_at', __('Dibuat'));
-        $grid->column('updated_at', __('Diperbarui'));
+        $grid->column('content', __('Vision'));
+        $grid->column('desc', __('Description'));
+        $grid->column('created_at', __('Created at'));
+        $grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }
@@ -47,10 +47,10 @@ class VisionController extends AdminController
         $show = new Show(Vision::findOrFail($id));
 
         $show->field('id', __('ID'));
-        $show->field('content', __('Visi'));
-        $show->field('desc', __('Deskripsi'));
-        $show->field('created_at', __('Dibuat'));
-        $show->field('updated_at', __('Diperbarui'));
+        $show->field('content', __('Vision'));
+        $show->field('desc', __('Description'));
+        $show->field('created_at', __('Created at'));
+        $show->field('updated_at', __('Updated at'));
 
         return $show;
     }
@@ -64,8 +64,8 @@ class VisionController extends AdminController
     {
         $form = new Form(new Vision);
 
-        $form->text('content', __('Visi'));
-        $form->textarea('desc', __('Deskripsi'));
+        $form->text('content', __('Vision'));
+        $form->textarea('desc', __('Description'));
 
         return $form;
     }

@@ -1,6 +1,6 @@
 <?php
 
-phonespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1;
 
 use App\UserProfile;
 use Illuminate\Http\Request;
@@ -30,7 +30,7 @@ class UserProfileController extends Controller
          $request->validate([
            'user_id' => 'required|integer',
            'birthplace' => 'required|max:50',
-           'birthday' = 'required|max:50',
+           'birthday' => 'required|max:50',
            'gender' => 'required|max:20',
            'religion' => 'required|max:20',
            'address' => 'required|min:3|max:1000',
@@ -45,7 +45,7 @@ class UserProfileController extends Controller
            'user_id' => $request->user_id,
            'birthplace' => $request->birthplace,
            'birthday' => $request->birthday,
-           'gender' => $requets->gender,
+           'gender' => $request->gender,
            'religion' => $request->religion,
            'address' => $request->address,
            'job' => $request->job,
@@ -117,7 +117,7 @@ class UserProfileController extends Controller
              $request->validate([
                'address' => 'required|min:3|max:1000'
              ]);
-             $user_profile->adress = $request->address;
+             $user_profile->address = $request->address;
          }
 
          if ($request->has('job')){

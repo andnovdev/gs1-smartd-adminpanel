@@ -8,6 +8,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 class EmployeeController extends AdminController
 {
@@ -16,7 +17,7 @@ class EmployeeController extends AdminController
      *
      * @var string
      */
-    protected $title = 'App\User';
+    protected $title = 'Employee';
 
     /**
      * Make a grid builder.
@@ -26,16 +27,16 @@ class EmployeeController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new User);
-        $grid->model()->role('Karyawan');
+        $grid->model()->role('Employee');
         $grid->model()->latest();
 
         $grid->column('id', __('ID'));
-        $grid->column('employees.identity_number', __('NIP'));
-        $grid->column('name', __('Nama'));
+        $grid->column('employees.identity_number', __('Identity Number'));
+        $grid->column('name', __('Name'));
         $grid->column('username', __('Username'));
-        $grid->column('employees.position', __('Jabatan'));
-        $grid->column('created_at', __('Dibuat'));
-        $grid->column('updated_at', __('Diperbarui'));
+        $grid->column('employees.position', __('Position'));
+        $grid->column('created_at', __('Created at'));
+        $grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }
@@ -51,38 +52,38 @@ class EmployeeController extends AdminController
         $show = new Show(User::findOrFail($id));
 
         $show->field('id', __('ID'));
-        $show->field('name', __('Nama'));
+        $show->field('name', __('Name'));
         $show->field('username', __('Username'));
         $show->field('email', __('Email'));
-        $show->field('email_verified_at', __('Verifikasi Email Pada'));
-        $show->field('created_at', __('Dibuat Pada'));
-        $show->field('updated_at', __('Diperbarui Pada'));
+        $show->field('email_verified_at', __('Email verified at'));
+        $show->field('created_at', __('Created at'));
+        $show->field('updated_at', __('Updated at'));
 
-        $show->profiles(__('Profil Pengguna'), function ($show) {
-            $show->field('birthday', __('Tanggal Lahir'));
-            $show->field('birthplace', __('Tempat Lahir'));
-            $show->field('gender', __('Jenis Kelamin'));
-            $show->field('religion', __('Agama'));
-            $show->field('address', __('Alamat'));
-            $show->field('job', __('Pekerjaan'));
-            $show->field('company', __('Tempat Kerja'));
-            $show->field('phone', __('Telepon'));
-            $show->field('desc', __('Deskripsi'));
+        $show->profiles(__('User Profiles'), function ($show) {
+            $show->field('birthday', __('Birthday'));
+            $show->field('birthplace', __('Birthplace'));
+            $show->field('gender', __('Gender'));
+            $show->field('religion', __('Religion'));
+            $show->field('address', __('Address'));
+            $show->field('job', __('Job'));
+            $show->field('company', __('Company'));
+            $show->field('phone', __('Phone'));
+            $show->field('desc', __('Description'));
             $show->field('avatar', __('Avatar'))->image();
         });
 
-        $show->empoyees(__('Informasi Karyawan', function ($show)
+        $show->empoyees(__('Information', function ($show)
         {
-            $show->field('identity_number', __('NIP'));
-            $show->field('position', __('Jabatan'));
-            $show->field('tenure_start', __('Masa Jabatan Dari'));
-            $show->field('tenure_finish', __('Masa Jabatan Sampai'));
+            $show->field('identity_number', __('Identity Number'));
+            $show->field('position', __('Position'));
+            $show->field('tenure_start', __('Tenure start'));
+            $show->field('tenure_finish', __('Tenure finish'));
         }));
 
-        $show->activityStatuses(__('Aktivitas Pengguna'), function ($show)
+        $show->activityStatuses(__('User Activity'), function ($show)
         {
             $show->field('status', __('Status'));
-            $show->field('last_active', __('Terakhir Aktif'));
+            $show->field('last_active', __('Last active'));
         });
 
 
@@ -98,10 +99,10 @@ class EmployeeController extends AdminController
     {
         $form = new Form(new User);
 
-        $form->text('employees.identity_number', __('No. Induk Pegawai'))
+        $form->text('employees.identity_number', __('Identity number'))
             ->rules('required|integer')
             ->creationRules('unique:employees,identity_number');
-        $form->text('name', __('Nama'))
+        $form->text('name', __('Name'))
             ->rules('required|string|max:255');
         $form->text('username', __('Username'))
             ->rules('required|string|between:5,255')
@@ -113,24 +114,24 @@ class EmployeeController extends AdminController
         $form->email('email', __('Email'))
             ->rules('required|email|string|max:255')
             ->creationRules('unique:users,email');
-        $form->date('profiles.birthday', __('Tanggal Lahir'));
-        $form->text('profiles.birthplace', __('Tempat Lahir'));
-        $form->select('profiles.gender', __('Jenis Kelamin'))
-            ->options(['Tidak Diketahui' => 'Tidak Diketahui', 'Laki-Laki' => 'Laki-Laki', 'Perempuan' => 'Perempuan',]);
-        $form->text('profiles.religion', __('Agama'));
-        $form->textarea('profiles.address', __('Alamat'));
-        $form->mobile('profiles.phone', __('Telepon'))
+        $form->date('profiles.birthday', __('Birthday'));
+        $form->text('profiles.birthplace', __('Birthplace'));
+        $form->select('profiles.gender', __('Gender'))
+            ->options(['Unknown' => 'Unknown', 'Male' => 'Male', 'Female' => 'Female',]);
+        $form->text('profiles.religion', __('Religion'));
+        $form->textarea('profiles.address', __('Address'));
+        $form->mobile('profiles.phone', __('Phone'))
             ->creationRules('unique:user_profiles,phone');
-        $form->image('profiles.avatar', __('Foto Profil'))
+        $form->image('profiles.avatar', __('Avatar'))
             ->removable()
             ->move('users/avatars');
-        $form->text('employees.position', __('Jabatan'))
+        $form->text('employees.position', __('Position'))
             ->rules('required|string|max:255');
-        $form->date('employees.tenure_start', __('Tahun mulai'))
+        $form->date('employees.tenure_start', __('Tenure start'))
             ->format('YYYY')
             ->default(date('YYYY'))
             ->rules('required');
-        $form->date('employees.tenure_finish', __('Tahun selesai'))
+        $form->date('employees.tenure_finish', __('Tenure finish'))
             ->format('YYYY')
             ->rules('required');
 
@@ -143,10 +144,11 @@ class EmployeeController extends AdminController
 
         $form->saving(function (Form $form)
         {
+            $role = Role::firstOrCreate(['name' => 'Employee']);
             $form->username = Str::snake($form->username);
             $form->api_token = Str::random(60);
 
-            $form->model()->assignRole('Karyawan');
+            $form->model()->assignRole('Employee');
         });
 
         return $form;

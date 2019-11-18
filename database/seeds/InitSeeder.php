@@ -13,7 +13,7 @@ class InitSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['name' => 'Penduduk']);
-        Role::create(['name' => 'Karyawan']);
+        Role::create(['name' => 'Villager']);
+        Role::create(['name' => 'Employee']);
     }
 }

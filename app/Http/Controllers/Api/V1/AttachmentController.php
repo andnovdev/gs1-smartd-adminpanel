@@ -85,7 +85,7 @@ class AttachmentController extends Controller
 
          $attachment->save();
 
-         return $attachment
+         return $attachment;
      }
 
      /**

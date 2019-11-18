@@ -15,7 +15,7 @@ class RegulationController extends AdminController
      *
      * @var string
      */
-    protected $title = 'App\Models\Villages\Regulation';
+    protected $title = 'Regulation';
 
     /**
      * Make a grid builder.
